@@ -1,164 +1,105 @@
-[README.md](https://github.com/user-attachments/files/30915944/README.md)
+[README.md](https://github.com/user-attachments/files/30916310/README.md)
 <div align="center">
 
-# 📡 Telecom Customer Churn Prediction
+# 📊 Sales Dashboard
 
-### Predicting customer churn with a stacked ensemble of gradient-boosted models
+### لوحة تحكم تفاعلية شاملة لتحليل المبيعات باستخدام Excel
 
-[![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
-[![XGBoost](https://img.shields.io/badge/XGBoost-2C8EBB?style=for-the-badge&logo=xgboost&logoColor=white)](https://xgboost.readthedocs.io/)
-[![LightGBM](https://img.shields.io/badge/LightGBM-02569B?style=for-the-badge&logo=lightgbm&logoColor=white)](https://lightgbm.readthedocs.io/)
-[![CatBoost](https://img.shields.io/badge/CatBoost-FFCC00?style=for-the-badge&logo=catboost&logoColor=black)](https://catboost.ai/)
-[![scikit-learn](https://img.shields.io/badge/scikit--learn-F7931E?style=for-the-badge&logo=scikit-learn&logoColor=white)](https://scikit-learn.org/)
-[![Jupyter](https://img.shields.io/badge/Jupyter-F37626?style=for-the-badge&logo=jupyter&logoColor=white)](https://jupyter.org/)
+![Excel](https://img.shields.io/badge/Microsoft%20Excel-217346?style=for-the-badge&logo=microsoft-excel&logoColor=white)
+![PivotTables](https://img.shields.io/badge/Pivot%20Tables-2C5F2D-blue?style=for-the-badge)
+![Dashboard](https://img.shields.io/badge/Interactive-Dashboard-orange?style=for-the-badge)
 
 </div>
 
 ---
 
-## 📌 Overview
+<div dir="rtl" align="right">
 
-Customer churn is one of the most expensive problems in the telecom industry — acquiring a new subscriber costs far more than retaining an existing one. This project builds an **end-to-end machine learning pipeline** that predicts which customers are likely to churn *before* they leave, so retention teams can act early and target the right customers.
+## 📌 نظرة عامة
 
-The pipeline combines heavy feature engineering with a **stacked ensemble of XGBoost, LightGBM, CatBoost, Extra Trees, and Logistic Regression**, optimally blended to squeeze out the best possible predictive performance.
+**Sales Dashboard** هي لوحة تحكم تفاعلية بالكامل تم بناؤها في Excel لتحليل بيانات المبيعات، بالاعتماد على أكثر من **10,000 عملية بيع** موزعة على مدن وولايات ومندوبي مبيعات وفئات منتجات مختلفة.
 
-> 🎯 **Final model performance: AUC-ROC = 0.7076** on a held-out test set of 20,000 unseen customers.
+تعتمد اللوحة على **Pivot Tables** و **Pivot Charts** و **Slicers** مترابطة بالكامل، بحيث يتحول أي فلتر يتم اختياره إلى تحديث فوري لكل الرسوم البيانية والمؤشرات في نفس اللحظة — بدون أي أكواد VBA، فقط بأدوات Excel الأساسية.
 
 ---
 
-## 🗂️ Dataset
+## ✨ أبرز المميزات
 
-Two raw sources are merged on `Customer_ID` into a single modeling table:
+- 🔢 **بطاقات مؤشرات الأداء (KPIs):** إجمالي المبيعات، المرتجعات، صافي المبيعات، الخصومات، تكلفة البضاعة المباعة (COGS)، عدد العملاء، عدد الطلبات.
+- 🗂️ **المبيعات حسب الفئة:** Furniture, Office Supplies, Technology.
+- 🌍 **المبيعات حسب مندوب المبيعات والمنطقة** (Central, East, South, West).
+- 🏙️ **أعلى 10 مدن وأعلى 10 ولايات مبيعًا** برسوم بيانية تفصيلية.
+- 📈 **اتجاه المبيعات والكميات عبر السنوات** (2014–2017).
+- 🥧 **توزيع المبيعات حسب الفئات الفرعية** (Binders, Chairs, Phones, Storage, Tables...) في رسم دائري.
+- 📊 **المبيعات حسب الولاية والفئة** في رسم بياني مركب.
+- 🎛️ **فلاتر تفاعلية (Slicers):** City, Category, Returned, Person — يمكن دمجها معًا لتحليل أي شريحة بيانات بدقة.
 
-| File | Description |
+---
+
+## 🖼️ لقطات من اللوحة
+
+### 1️⃣ العرض الكامل لكل البيانات
+
+![Sales Dashboard - Full View](assets/dashboard-overview.png)
+
+### 2️⃣ مثال على التفاعلية: فلترة حسب City = Chicago و Category = Technology
+
+عند اختيار فلاتر معينة، تتحدث كل الرسوم والمؤشرات تلقائيًا لتعكس فقط البيانات المطابقة:
+
+![Sales Dashboard - Filtered View](assets/dashboard-filtered-view.png)
+
+---
+
+## 🗂️ هيكل ملف Excel
+
+| الورقة (Sheet) | الوصف |
 |---|---|
-| `Client.csv` | Demographic & account-level attributes (credit class, handset, income, household, etc.) |
-| `Record.csv` | Usage & billing behavior (minutes of use, revenue, dropped calls, overage, customer care calls, etc.) |
-
-| Metric | Value |
-|---|---|
-| Total customers | **100,000** |
-| Raw features | **100** |
-| Churn rate | **49.56 %** (well-balanced target) |
-| Final engineered features | **142** |
-| Train / Test split | 80,000 / 20,000 |
-
----
-
-## 🔍 Exploratory Data Analysis
-
-**Churn is almost perfectly balanced**, which makes AUC-ROC and F1 reliable evaluation metrics without needing heavy resampling.
-
-![Churn distribution](assets/churn_distribution.png)
-
-**Equipment age is one of the strongest churn drivers** — customers who haven't upgraded their device in 3+ years churn at a noticeably higher rate than the overall average.
-
-![Churn rate by equipment age](assets/churn_by_equipment_age.png)
-
-Digging into usage patterns confirms that **tenure (`months`) and days-since-upgrade (`eqpdays`) show the clearest separation** between churners and non-churners, alongside revenue and minutes-of-use trends.
-
-![Key features vs churn](assets/key_features_boxplots.png)
+| `Orders` | البيانات الخام لأكثر من 9,900 طلب (تاريخ الطلب، العميل، المنطقة، الفئة، المبيعات، الربح، COGS...) |
+| `People` | بيانات مندوبي المبيعات المسؤولين عن كل منطقة |
+| `Return` | سجل الطلبات المرتجعة |
+| `Shipping Cost` | تكاليف الشحن لكل وضع شحن |
+| `Pivot Calculations` | جداول Pivot المساعدة لحساب المؤشرات |
+| `Dashboard Creation` | إعدادات تجميع اللوحة |
+| `Sales Dashboard Calculation` | الحسابات النهائية المغذية للوحة |
+| `Profit Insights` | تحليلات إضافية للربحية |
+| `Wire Frame` | المخطط الأولي (Wireframe) لتصميم اللوحة |
 
 ---
 
-## ⚙️ Feature Engineering
+## 🛠️ الأدوات والتقنيات
 
-On top of the raw 100 columns, the pipeline adds:
-
-- 📈 **Trend features** — 3-month vs 6-month usage/revenue momentum (`mou_trend_3v6`, `rev_trend_3v6`)
-- ☎️ **Behavioral ratios** — dropped-call ratio, overage ratio, active-subscriber ratio
-- 👥 **Peer-group aggregates** — features benchmarked against similar customer segments (fit on train, safely mapped to test)
-- 🎯 **K-Fold target encoding** — for high-cardinality categorical variables, leak-free via out-of-fold encoding
-- 🧩 **K-Means distance features** — cluster-distance signals from core usage/trend metrics
-
-This engineering pushes the feature space from 100 → **142 model-ready features**.
+- **Microsoft Excel** (Pivot Tables & Pivot Charts)
+- **Slicers** للتفاعل اللحظي بين كل عناصر اللوحة
+- **Power Query / Query Tables** لتجهيز وربط البيانات
+- **Excel Formulas** لحساب صافي المبيعات، الخصومات، وCOGS
 
 ---
 
-## 🤖 Modeling Approach
+## 🚀 طريقة الاستخدام
 
-Five base models are trained and evaluated, then combined into a two-level stack plus a final optimized weighted blend:
-
-| Model | AUC-ROC |
-|---|---|
-| Logistic Regression | baseline |
-| Random Forest | baseline |
-| CatBoost | 0.7045 |
-| LightGBM | 0.7043 |
-| XGBoost | 0.7052 |
-| XGBoost (5-seed bag) | 0.7071 |
-| Two-level Stacking | 0.7057 |
-| **🏆 Final Optimized Blend** | **0.7076** |
-
-The final prediction is a **weighted blend optimized via `scipy.optimize`**, dominated by the 5-seed-bagged XGBoost and pairwise feature-interaction models:
-
-![Model comparison AUC-ROC](assets/model_comparison_auc.png)
-
-**Top churn drivers** identified by the XGBoost feature-importance ranking:
-
-![Top 20 feature importances](assets/feature_importance.png)
+1. حمّل ملف `Sales_Dashboard.xlsx` من المستودع.
+2. افتحه ببرنامج Microsoft Excel (يفضل نسخة 2016 أو أحدث لدعم كل الميزات).
+3. استخدم الفلاتر (Slicers) الموجودة على الجانب الأيمن لتصفية البيانات حسب المدينة أو الفئة أو حالة الإرجاع أو مندوب المبيعات.
+4. تابع تحديث كل الرسوم البيانية والمؤشرات تلقائيًا حسب اختيارك.
 
 ---
 
-## 🚦 Business Output — Risk Tiers
-
-Every customer is finally scored and bucketed into an actionable **risk tier**, so retention/marketing teams can prioritize outreach:
-
-![Customer distribution by churn risk tier](assets/risk_tiers.png)
-
-| Tier | Action |
-|---|---|
-| 🟢 Low Risk | No action needed |
-| 🟡 Medium Risk | Monitor / light engagement |
-| 🟠 High Risk | Proactive retention offer |
-| 🔴 Critical Risk | Immediate intervention |
-
----
-
-## 🛠️ Tech Stack
-
-- **Language:** Python 3.10+
-- **Data:** pandas, numpy
-- **Modeling:** XGBoost, LightGBM, CatBoost, scikit-learn, category_encoders
-- **Optimization:** scipy (blend-weight optimization)
-- **Visualization:** matplotlib, seaborn
-- **Environment:** Jupyter / Google Colab
-
----
-
-## 📁 Project Structure
-
-```
-telecom-churn-prediction/
-├── Telecom_Churn_Model.ipynb        # Full pipeline: EDA → feature engineering → modeling → blending
-├── Telecom_Churn_Power_Point.pptx   # Executive presentation of findings
-├── Client.csv                       # Customer demographic & account data
-├── Record.csv                       # Customer usage & billing behavior data
-├── assets/                          # Charts used in this README
-└── README.md
-```
-
-## ▶️ How to Run
-
-```bash
-git clone https://github.com/<your-username>/telecom-churn-prediction.git
-cd telecom-churn-prediction
-
-pip install -q xgboost lightgbm catboost category_encoders pandas numpy scikit-learn matplotlib seaborn scipy
-
-jupyter notebook Telecom_Churn_Model.ipynb
-```
-
----
-
-## 📬 Contact
+## 📬 تواصل معي
 
 <div align="center">
 
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Eng.%20Omar%20Salem-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/eng-omarsalem)
-[![Email](https://img.shields.io/badge/Email-salemomar676%40gmail.com-EA4335?style=for-the-badge&logo=gmail&logoColor=white)](mailto:salemomar676@gmail.com)
-[![Portfolio](https://img.shields.io/badge/Portfolio-View%20Proposal-FFB000?style=for-the-badge&logo=googledocs&logoColor=white)](https://gamma.app/docs/Copy-of-Brand-Partnership-Proposal-lrp9yrhau9gdpj1)
+[![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Eng-OmarSalem)
+[![Portfolio](https://img.shields.io/badge/Portfolio-Gamma-FF6B35?style=for-the-badge&logo=gumroad&logoColor=white)](https://gamma.app/docs/Copy-of-Brand-Partnership-Proposal-lrp9yrhau9gdpj1)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/eng-omarsalem)
 
-**⭐ If you found this project useful, consider giving it a star!**
+</div>
+
+</div>
+
+<div align="center">
+
+---
+
+Made with 📊 in Excel
 
 </div>
