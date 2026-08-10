@@ -1,12 +1,7 @@
-[README.md](https://github.com/user-attachments/files/30721209/README.md)
+[README.md](https://github.com/user-attachments/files/30915944/README.md)
 <div align="center">
 
 # 📡 Telecom Customer Churn Prediction
-<img width="790" height="490" alt="risk_tiers" src="https://github.com/user-attachments/assets/6e6a594d-79cd-454a-8ada-1bbc22c54223" /><img width="989" height="539" alt="model_comparison_auc" src="https://github.com/user-attachments/assets/7c82b735-7b9f-4029-954a-8b9a13bef801" />
-<img width="1490" height="740" alt="key_features_boxplots" src="https://github.com/user-attachments/assets/029cf029-64eb-4d65-b58a-c665708aa18a" />
-<img width="840" height="790" alt="feature_importance" src="https://github.com/user-attachments/assets/2a6c63c3-cb52-482c-a352-abc4f596c91f" />
-<img width="1083" height="440" alt="churn_distribution" src="https://github.com/user-attachments/assets/63b087e0-63b1-4d37-829e-6af06d596120" />
-<img width="790" height="490" alt="churn_by_equipment_age" src="https://github.com/user-attachments/assets/1a50eade-4b6d-4ee7-912b-00ce3d15431d" />
 
 ### Predicting customer churn with a stacked ensemble of gradient-boosted models
 
@@ -14,7 +9,7 @@
 [![XGBoost](https://img.shields.io/badge/XGBoost-2C8EBB?style=for-the-badge&logo=xgboost&logoColor=white)](https://xgboost.readthedocs.io/)
 [![LightGBM](https://img.shields.io/badge/LightGBM-02569B?style=for-the-badge&logo=lightgbm&logoColor=white)](https://lightgbm.readthedocs.io/)
 [![CatBoost](https://img.shields.io/badge/CatBoost-FFCC00?style=for-the-badge&logo=catboost&logoColor=black)](https://catboost.ai/)
-[![scikit-learn](https://img.shields.io/badge/sikit--learn-F7931E?style=for-the-badge&logo=scikit-learn&logoColor=white)](https://scikit-learn.org/)
+[![scikit-learn](https://img.shields.io/badge/scikit--learn-F7931E?style=for-the-badge&logo=scikit-learn&logoColor=white)](https://scikit-learn.org/)
 [![Jupyter](https://img.shields.io/badge/Jupyter-F37626?style=for-the-badge&logo=jupyter&logoColor=white)](https://jupyter.org/)
 
 </div>
