@@ -1,3 +1,8 @@
+
+<img width="1443" height="549" alt="Screenshot 2026-08-04 180608" src="https://github.com/user-attachments/assets/4aed9e0d-417a-4dee-ac5f-5379142b027c" />
+<img width="1444" height="547" alt="Screenshot 2026-08-04 180918" src="https://github.com/user-attachments/assets/b0cf243b-1750-4eb2-876a-0cf9f90901ff" />
+
+
 [README.md](https://github.com/user-attachments/files/30916339/README.md)
 <div align="center">
 
